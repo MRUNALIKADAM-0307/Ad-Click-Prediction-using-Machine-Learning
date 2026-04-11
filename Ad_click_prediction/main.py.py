@@ -1,0 +1,106 @@
+!unzip "archive (5) (1).zip"
+
+!ls
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import accuracy_score,confusion_matrix, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+
+df = pd.read_csv("archive (5) (1).zip")
+df.head()
+
+df.info()
+df.columns
+
+df.shape
+
+df.isnull().sum()
+
+df = pd.get_dummies(df, drop_first=True)
+
+X = df.drop('Clicked', axis=1)
+y = df['Clicked']
+
+df['Clicked'].sum()
+
+df['Clicked'].mean()
+
+df.corr()
+
+X = df.drop('Clicked', axis=1)
+y = df['Clicked']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2)
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Predict on test data
+y_pred_lr = model.predict(X_test)
+#Accuracy testing
+accuracy_lr = accuracy_score(y_test, y_pred_lr)
+print(f"Logistic Regression Accuracy: {accuracy_lr * 100:.2f}%")
+
+# training random forest model
+randomforest = RandomForestClassifier()
+randomforest.fit(X_train, y_train)
+y_pred_rf = randomforest.predict(X_test)
+accuracy_rf = accuracy_score(y_test, y_pred_rf)
+
+print(f"Random Forest Accuracy: {acc_rf * 100:.2f}%")
+
+if acc_rf > accuracy_lr:
+    print("Random Forest improved the accuracy!")
+else:
+    print("Logistic Regression performed better or equal.")
+
+# Feature Importance from Random Forest
+featureimportance = pd.Series(randomforest.feature_importances_, index=X.columns)
+featureimportance = featureimportance.sort_values(ascending=False)
+
+# Plotting featureimportance
+top20features = featureimportance.sort_values(ascending=False).head(20)
+
+plt.figure(figsize=(10, 8))
+sns.barplot(x=top20features.values, y=top20features.index,hue=top20features.index, palette='viridis',legend=False)
+
+plt.title('Top 20 Feature Importance for Ad Click Prediction')
+plt.xlabel('Importance Score')
+plt.ylabel('Features')
+plt.show()
+
+import matplotlib.pyplot as plt
+
+df.hist(figsize=(10,8))
+plt.show()
+
+#testing for a new user
+new_user_data = pd.DataFrame({'Age': [35],'Income': [60000],'Daily Internet Usage': [200], 'Gender': [1] })#Assuming 1 is male and 0 is female
+#make sure the columns match exactly with X.columns
+new_user_data = new_user_data.reindex(columns=X.columns, fill_value=0)
+# Predict using the better model (Random Forest)
+prediction = randomforest.predict(new_user_data)
+if prediction[0] == 1:
+    print("Prediction:The user will click on this ad")
+else:
+    print("Prediction:The user will not click on this ad")
+
+print("Logistic Accuracy:", accuracy_score(y_test, y_pred))
+print("Random Forest Accuracy:", accuracy_score(y_test, y_pred_rf))
+
+#Random Forest performed better due to handling non-linear relationships.
