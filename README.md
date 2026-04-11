@@ -1,5 +1,5 @@
 # 📊 Ad Click Prediction using Machine Learning
-**Author:** Your Name
+**Author:** Mrunali Kadam
 
 ## 📌 Overview
 This project predicts whether a user will click on an advertisement using machine learning techniques. It demonstrates a complete end-to-end workflow including data preprocessing, exploratory data analysis, model training, evaluation, and comparison.
