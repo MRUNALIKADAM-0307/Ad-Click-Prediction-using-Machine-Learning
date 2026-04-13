@@ -96,4 +96,74 @@ The model takes new user input data and predicts whether the user is likely to c
 
 ## 🚀 How to Run
 
-1. Install dependencies:
+## 🚀 How to Run
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+2. **Install dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+3. **Add the dataset**
+
+* Download the dataset and place it in the project folder
+* Update the file path in the code if needed
+
+4. **Run the project**
+
+```bash
+python main.py
+```
+
+*or (if using Jupyter Notebook):*
+
+```bash
+jupyter notebook
+```
+
+5. **View results**
+
+* Model output, metrics, and visualizations will be displayed after execution
+## 🚀 How to Run
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+2. **Install dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+3. **Add the dataset**
+
+* Download the dataset and place it in the project folder
+* Update the file path in the code if needed
+
+4. **Run the project**
+
+```bash
+python main.py
+```
+
+*or (if using Jupyter Notebook):*
+
+```bash
+jupyter notebook
+```
+
+5. **View results**
+
+* Model output, metrics, and visualizations will be displayed after execution
+
